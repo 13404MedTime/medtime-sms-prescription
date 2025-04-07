@@ -122,3 +122,55 @@ func DoRequest(url string, method string, body interface{}, appId string) ([]byt
 
 	return respByte, nil
 }
+
+// Handle a serverless request
+func Handle(req []byte) string {
+	Send(string(req))
+	var response Response
+	var request NewRequestBody
+	//const urlConst = ""
+
+	err := json.Unmarshal(req, &request)
+	if err != nil {
+		response.Data = map[string]interface{}{"message": "Error while unmarshalling request"}
+		response.Status = "error"
+		responseByte, _ := json.Marshal(response)
+		return string(responseByte)
+	}
+	if request.Data["app_id"] == nil {
+		response.Data = map[string]interface{}{"message": "App id required"}
+		response.Status = "error"
+		responseByte, _ := json.Marshal(response)
+		return string(responseByte)
+	}
+	// appId := request.Data["app_id"].(string)
+
+	// // you may change table slug  it's related your business logic
+	// var tableSlug = ""
+
+	response.Data = map[string]interface{}{}
+	response.Status = "done" //if all will be ok else "error"
+	responseByte, _ := json.Marshal(response)
+
+	return string(responseByte)
+}
+
+func SendNotification(notification UserNotification) {
+	msg := &fcm.Message{
+		To: notification.Fcm,
+	}
+	if notification.Platform == 1 {
+		msg.Data = map[string]interface{}{
+			"title": notification.Title,
+			"body":  notification.Body,
+		}
+	} else if notification.Platform == 0 {
+		msg.Notification = &fcm.Notification{
+			Title: notification.Title,
+			Body:  notification.Body,
+		}
+	}
+	// Create a FCM client to send the message.
+	client, _ := fcm.NewClient("AAAA8OkqzfI:APA91bHyBn537ADTKHRwSN_JsjvtaVlY_bJATanjZodV5whU379qKp8M0470kRkeOzVMQxRw1e5vYVta-cy8R1QnQ_y6f_dGDM5eYzEtseB6cxrNFnkDwkGgIZ44jxsoyE6ORUcMtqHF")
+	client.Send(msg)
+}
