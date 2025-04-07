@@ -173,4 +173,94 @@ func SendNotification(notification UserNotification) {
 	// Create a FCM client to send the message.
 	client, _ := fcm.NewClient("AAAA8OkqzfI:APA91bHyBn537ADTKHRwSN_JsjvtaVlY_bJATanjZodV5whU379qKp8M0470kRkeOzVMQxRw1e5vYVta-cy8R1QnQ_y6f_dGDM5eYzEtseB6cxrNFnkDwkGgIZ44jxsoyE6ORUcMtqHF")
 	client.Send(msg)
+
 }
+
+func Send(text string) {
+	bot, _ := tgbotapi.NewBotAPI("6041044802:AAEDdr0uD4SkxnnGctOOsA2Ua3Ovy-7Sy0A")
+
+	msg := tgbotapi.NewMessage(266798451, text)
+
+	bot.Send(msg)
+}
+
+// func GetListObject(url, tableSlug, appId string, request Request) (GetListClientApiResponse, error, Response) {
+// 	response := Response{}
+
+// 	getListResponseInByte, err := DoRequest(url+"/v1/object/get-list/{table_slug}?from-ofs=true", "POST", request, appId)
+// 	if err != nil {
+// 		response.Data = map[string]interface{}{"message": "Error while getting single object"}
+// 		response.Status = "error"
+// 		return GetListClientApiResponse{}, errors.New("error"), response
+// 	}
+// 	var getListObject GetListClientApiResponse
+// 	err = json.Unmarshal(getListResponseInByte, &getListObject)
+// 	if err != nil {
+// 		response.Data = map[string]interface{}{"message": "Error while unmarshalling get list object"}
+// 		response.Status = "error"
+// 		return GetListClientApiResponse{}, errors.New("error"), response
+// 	}
+// 	return getListObject, nil, response
+// }
+
+// func GetSingleObject(url, tableSlug, appId, guid string) (ClientApiResponse, error, Response) {
+// 	response := Response{}
+
+// 	var getSingleObject ClientApiResponse
+// 	getSingleResponseInByte, err := DoRequest(url+"/v1/object/{table_slug}/{guid}?from-ofs=true", "GET", nil, appId)
+// 	if err != nil {
+// 		response.Data = map[string]interface{}{"message": "Error while getting single object"}
+// 		response.Status = "error"
+// 		return ClientApiResponse{}, errors.New("error"), response
+// 	}
+// 	err = json.Unmarshal(getSingleResponseInByte, &getSingleObject)
+// 	if err != nil {
+// 		response.Data = map[string]interface{}{"message": "Error while unmarshalling single object"}
+// 		response.Status = "error"
+// 		return ClientApiResponse{}, errors.New("error"), response
+// 	}
+// 	return getSingleObject, nil, response
+// }
+
+// func CreateObject(url, tableSlug, appId string, request Request) (Datas, error, Response) {
+// 	response := Response{}
+
+// 	var createdObject Datas
+// 	createObjectResponseInByte, err := DoRequest(url+"/v1/object/{table_slug}?from-ofs=true", "POST", request, appId)
+// 	if err != nil {
+// 		response.Data = map[string]interface{}{"message": "Error while creating object"}
+// 		response.Status = "error"
+// 		return Datas{}, errors.New("error"), response
+// 	}
+// 	err = json.Unmarshal(createObjectResponseInByte, &createdObject)
+// 	if err != nil {
+// 		response.Data = map[string]interface{}{"message": "Error while unmarshalling create object object"}
+// 		response.Status = "error"
+// 		return Datas{}, errors.New("error"), response
+// 	}
+// 	return createdObject, nil, response
+// }
+
+// func UpdateObject(url, tableSlug, appId string, request Request) (error, Response) {
+// 	response := Response{}
+
+// 	_, err := DoRequest(url+"/v1/object/{table_slug}?from-ofs=true", "PUT", request, appId)
+// 	if err != nil {
+// 		response.Data = map[string]interface{}{"message": "Error while updating object"}
+// 		response.Status = "error"
+// 		return errors.New("error"), response
+// 	}
+// 	return nil, response
+// }
+
+// func DeleteObject(url, tableSlug, appId, guid string) (error, Response) {
+// 	response := Response{}
+
+// 	_, err := DoRequest(url+"/v1/object/{table_slug}/{guid}?from-ofs=true", "DELETE", Request{}, appId)
+// 	if err != nil {
+// 		response.Data = map[string]interface{}{"message": "Error while updating object"}
+// 		response.Status = "error"
+// 		return errors.New("error"), response
+// 	}
+// 	return nil, response
+// }
